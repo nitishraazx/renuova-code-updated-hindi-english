@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RENUOVA | AMS – Automatic Motor Switch</title>
+
+<style>
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;font-family:Roboto,sans-serif;}
+body, html{height:100%;width:100%;background:#000;}
+
+/* LOADER */
+#loader{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:#000;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;
+}
+#loader h1{
+  font-size:4rem;color:#00d2ff;text-transform:uppercase;letter-spacing:10px;
+  text-shadow:0 0 3px #00d2ff,0 0 6px #00d2ff,0 0 12px #00d2ff,0 0 25px #00d2ff;
+  animation:glow 1.5s ease-in-out infinite alternate;
+}
+@keyframes glow{
+  from {text-shadow: 0 0 2px #00d2ff,0 0 4px #00d2ff,0 0 8px #00d2ff,0 0 15px #00d2ff;}
+  to   {text-shadow: 0 0 6px #00d2ff,0 0 10px #00d2ff,0 0 14px #00d2ff,0 0 25px #00d2ff;}
+}
+.progress-bar{
+  margin-top:30px;width:300px;height:6px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden;
+}
+.progress{
+  height:100%;width:0%;background:#00d2ff;border-radius:3px;animation:load 3s forwards;
+}
+@keyframes load{0%{width:0%;}100%{width:100%;}}
+#main-content{display:none;opacity:0;transition:opacity 0.8s ease-in-out;}
+
+/* PRODUCT PAGE */
+body{background:linear-gradient(180deg,#000,#050505);color:#fff;}
+.header{padding:18px;text-align:center;border-bottom:1px solid rgba(0,210,255,.3);}
+.logo{font-size:34px;letter-spacing:6px;color:#00d2ff;text-shadow:0 0 20px rgba(0,210,255,.7);}
+.container{display:flex;justify-content:center;padding:40px 15px;}
+.product-card{width:100%;max-width:1150px;display:flex;background:#0a0a0a;border-radius:16px;overflow:hidden;border:1px solid rgba(0,210,255,.15);}
+.image-box{flex:1.1;background:#fff;padding:30px;text-align:center;}
+.slider{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;}
+.slider::-webkit-scrollbar{display:none}
+.slide{min-width:100%;height:420px;display:flex;align-items:center;justify-content:center;scroll-snap-align:center;}
+.slide img{max-width:100%;max-height:100%;animation:float 3s ease-in-out infinite;}
+@keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0);}
+}
+.thumbnail-gallery{display:flex;justify-content:center;gap:14px;margin-top:18px;}
+.thumb-btn{width:75px;height:75px;border-radius:10px;border:2px solid #ddd;background:#fff;cursor:pointer;}
+.thumb-btn.active{border-color:#00d2ff;box-shadow:0 0 12px rgba(0,210,255,.7);}
+.thumb-btn img{width:100%;height:100%;object-fit:contain;}
+.details-box{flex:1.6;padding:40px;}
+.product-title{font-size:30px;color:#00d2ff;}
+.tagline{color:#aaa;font-style:italic;}
+.badge{display:inline-block;margin:14px 0;padding:6px 14px;background:#2e7d32;border-radius:20px;font-size:14px;}
+.description p{color:#ccc;line-height:1.7;}
+.description h3{margin-top:26px;color:#00d2ff;}
+.description ul{padding-left:18px;color:#ccc;}
+.description li{margin-bottom:8px;}
+.price-area{margin:30px 0;padding:22px;background:#111;border-radius:14px;}
+.price{font-size:38px;font-weight:bold;}
+.mrp{text-decoration:line-through;color:#777;margin-left:10px;}
+.discount{color:#4caf50;margin-left:10px;font-weight:bold;}
+.buy-btn{display:block;text-align:center;padding:20px;font-size:20px;font-weight:bold;color:#fff;border-radius:14px;text-decoration:none;background:#25D366;animation:pulse 1.6s infinite;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.6)}70%{box-shadow:0 0 0 18px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
+@media(max-width:900px){.product-card{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <h1>Renuova</h1>
+  <div class="progress-bar">
+    <div class="progress"></div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="main-content">
+<header class="header">
+  <div class="logo">RENUOVA</div>
+</header>
+
+<div class="container">
+<div class="product-card">
+
+<div class="image-box">
+  <div class="slider" id="slider">
+    <div class="slide">
+      <img src="https://i.ibb.co/kgmNPpsz/instasquare-photoeditor-effect-cutout-20251219193556223.png">
+    </div>
+    <div class="slide">
+      <img src="https://i.ibb.co/8Lgk45Gy/instasquare-photoeditor-effect-cutout-20251219192722467.png">
+    </div>
+    <div class="slide">
+      <img src="https://i.ibb.co/93C0jyh3/DEVICE-DIGRAM.png">
+    </div>
+  </div>
+
+  <div class="thumbnail-gallery">
+    <button class="thumb-btn active" onclick="goSlide(0,this)">
+      <img src="https://i.ibb.co/kgmNPpsz/instasquare-photoeditor-effect-cutout-20251219193556223.png">
+    </button>
+    <button class="thumb-btn" onclick="goSlide(1,this)">
+      <img src="https://i.ibb.co/8Lgk45Gy/instasquare-photoeditor-effect-cutout-20251219192722467.png">
+    </button>
+    <button class="thumb-btn" onclick="goSlide(2,this)">
+      <img src="https://i.ibb.co/93C0jyh3/DEVICE-DIGRAM.png">
+    </button>
+  </div>
+</div>
+
+<div class="details-box">
+  <h1 class="product-title">AMS – Automatic Motor Switch</h1>
+  <span class="tagline">Smart • Safe • Reliable Motor Control</span><br>
+  <span class="badge">100% Electrical Safety</span>
+
+  <div class="description">
+    <p>
+      AMS ek smart automatic device hai jo water tank full hote hi
+      motor ko apne aap band kar deta hai. No overflow, no tension.
+    </p>
+
+    <h3>⭐ Key Features</h3>
+    <ul>
+      <li>Water tank full hote hi motor automatic OFF ho jaata hai |</li>
+      <li>Plastic float switch based hone ke karna current flow (zero risk hota hai)</li>
+      <li>Low power consumption</li>
+      <li> shok-free design famil & kids ke liye bilkul safe |
+        <li> 220/30 A/C input-half waat|
+    </ul>
+    
+
+    <h3>🛡️ Benefits</h3>
+    <ul>
+      <li>Motor extra nahi chalti bijli ki bachat |</li>
+      <li>Overload se protection motor life long hoti hai |</li>
+      <li>Easy installation</li>
+    </ul>
+  </div>
+
+  <div class="price-area">
+    <span class="price">₹999</span>
+    <span class="mrp">₹1,999</span>
+    <span class="discount">50% OFF</span>
+  </div>
+
+  <a class="buy-btn"
+     target="_blank"
+     href="https://wa.me/919229288001?text=Hello%20Renuova%20Team,%20I%20want%20to%20buy%20AMS%20Automatic%20Motor%20Switch.">
+     BUY NOW ON WHATSAPP
+  </a>
+</div>
+
+</div>
+</div>
+</div>
+
+<script>
+const slider = document.getElementById("slider");
+const thumbs = document.querySelectorAll(".thumb-btn");
+
+function goSlide(index,btn){
+  slider.scrollTo({
+    left: slider.clientWidth * index,
+    behavior:"smooth"
+  });
+  thumbs.forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+}
+
+// Hide loader after 3s and show main content
+setTimeout(()=>{
+  document.getElementById('loader').style.display='none';
+  const main = document.getElementById('main-content');
+  main.style.display='block';
+  setTimeout(()=>{main.style.opacity='1';},50);
+},3000);
+</script>
+
+</body>
+</html>
